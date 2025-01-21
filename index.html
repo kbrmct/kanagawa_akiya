@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNWCX2BQ');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LP Jam Nation</title>
@@ -16,13 +24,24 @@
         }
 
         .main-title-section {
+            background: url('./front.jpg') no-repeat center center; /* Replace 'your-image-url.jpg' with your image path */
+            background-size: cover; /* Ensures the image covers the entire background */
+            color: #fff;
+            padding: 3rem 0;
+            text-align: center; /* Centers the content */
+
+        }
+
+
+/*        .main-title-section {
             background-color: #ff8c00;
             color: #fff;
             padding: 3rem 0;
-        }
+        }*/
         .main-title-section h1 {
             padding-left: 2rem;
         }
+
 
         #main-image {
             border-radius: 15px; /* Adds rounded corners */
@@ -50,15 +69,108 @@
             border: none; /* Removes the border */
         }
 
+        .cta-section {
+            background-color: #f8f9fa;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-section form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-section .form-control {
+            height: 3.5rem;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .cta-section .btn {
+            background-color: #ff7f50; /* Orange color */
+            color: #fff;
+            font-size: 1.25rem;
+            height: 3.5rem;
+            border: none;
+        }
+        .cta-section .btn:hover {
+            background-color: #ff5722; /* Darker orange */
+        }
+
+        #thank-you {
+            display: none;
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 1em;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+
     </style>
+
+    <script>
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const button = document.getElementById("submit-button");
+
+            button.disabled = true; // Disable the button
+            button.textContent = '処理中'; // Change button text
+
+
+            const emailInput = document.querySelector('input[name="email"]');
+            const errorMessage = document.querySelector('.error-message');
+            if (!validateEmail(emailInput.value)) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = '正しいメールアドレスを入力してください。';
+
+                return;
+            }
+
+            const queryParams = new URLSearchParams({
+              email: emailInput.value
+              });
+
+            const response = await fetch(`https://script.google.com/macros/s/AKfycbwFpnWdnO0qdkofey2FzrkAcoEBf6aO11wXr4v1SV6PmtoQjOOC2AvNuRqiWQqaRbyc/exec?${queryParams.toString()}`);
+            const result = await response.json();
+
+//            alert(result.message);
+
+            errorMessage.style.display = 'none';
+            document.querySelector('.form-container').style.display = 'none';
+            document.querySelector('#thank-you').style.display = 'block';
+
+        }
+    </script>
+
 
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNWCX2BQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Header -->
     <header class="container py-3">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <img src="./Jam+Nation+Logo-10.jpg" alt="Logo" id="logo" style="max-height: 50px;">
+                かながわ空き家活用サービス
+ <!--               <img src="./Jam+Nation+Logo-10.jpg" alt="Logo" id="logo" style="max-height: 50px;"-->
             </div>
             <nav>
                 <!-- Add navigation if needed -->
@@ -69,14 +181,9 @@
     <!-- Main Title Section -->
     <section class="container-fluid main-title-section">
         <div class="row align-items-center">
-            <div class="col-md-6">
-                <h1 class="display-4">
-                ジャズ友が欲しいなら、Jam Nation！
-                あなたにピッタリの演奏仲間が、ここで見つかる！
-                </h1>
-            </div>
-            <div class="col-md-6 text-end">
-                <img src="./session.jpg" alt="Main Image" id="main-image" style="max-width: 100%; height: auto;">
+            <div class="col-12">
+                <h4>空き家の管理でお悩みの方へ</h4>
+                <h2 class="display-4">０円で<br>活用のお手伝いいたします</h2>
             </div>
         </div>
     </section>
@@ -85,72 +192,94 @@
     <section class="container">
         <!-- Block 1 -->
         <div class="py-4 border-bottom">
-            <h2>「ジャズバンドで組みたいけど、仲間がいない…」</h2>
-            <p>
-            <ul>
-            <li>「周りにジャズをやっている人が全然いない！」</li>
-            <li>「どうやってジャズ仲間を探せばいいの？」</li>
-            <li>「SNSはたくさんあるけど、ジャズ仲間が探せない…」</li>
-            </ul>
-            ジャズをもっと楽しみたいのに、<div class="text-danger fw-bold">仲間がいないせいで、音楽活動の幅が広がらない。</div>
 
-            そんな悩み、ありませんか？
-            </p>
+                もし、放置している空き家を収益化できたら、<br>
+                あなたの悩みや負担はどう変わるでしょう？<br><br>
+
+                想像してください…<br>
+                -固定資産税で悩まない<br>
+                -定期的な見回りもない<br>
+                -近所からの苦情もない<br>
+                <br>それなのに、毎月安定した収益が入る安心感を得た自分の姿を…<br>
+
+<hr>
+
+            <h2 class="text-danger">空き家を所有しているあなた<br>こんな経験ありませんか？</h2>
+            <ul>
+                <li>「相続した空き家をどう管理すればよいのかわからない…」</li>
+                <li>「賃貸にしようと、リフォームの見積もりをしたが、高すぎて断念」</li>
+                <li>「放置していたら、近所から苦情が来るようになった…」</li>
+            </ul>
+
+            こんな時、<br>「どうすれば良いのかわからない」<br>と無力感を感じてしまいますよね。<br>
+
+でも反対に、<br>
+<h4>もし空き家の運用ノウハウや費用が必要なく、
+プロに任せるだけで毎月収益を得られるとしたら…？</h4><br>
+
+そして
+<h4>庭の手入れや建物のメンテナンスが不要になり、
+空き家の固定資産税も収益で賄えるようになったら…？</h4>
+
+そんな未来を手に入れることができるサービスが、「空き家活用サービス」です。
+
         </div>
         <!-- Block 2 -->
         <div class="py-4 border-bottom">
-            <h2>Facebook,Xでは、ジャズ仲間を探すのは一苦労。</h2>
+
+            <h2 class="text-danger">あなたがこのサービスを選ぶべき理由</h2>
+
+            では、なぜあなたがこのサービスを選ぶべきなのか？<br>他の方法とは何が違うのか？<br> 3つのポイントでご紹介します。
+
             <p>
-            <div class="text-danger fw-bold">
-            「検索機能がジャズミュージシャンを探す用じゃない」 
-            </div>
-            そのため、活動エリア、スタイルや演奏レベルが合う人を見つけるのはほぼ不可能…。<br>
-            だから、<br><span class="text-danger fw-bold">ジャズ仲間探しに時間や労力を無駄にしてしまうんです。</span>
+                <h3>費用負担ゼロでスタート</h3>
+                当社がリフォームや運用に必要なコストを負担するため、
+                オーナー様は初期投資やランニングコストを気にせず利用可能です。<br>
+                (当社条件に合致した場合)
+
             </p>
+
+            <p>
+                <h3>プロによるフルサポート！</h3>
+                リノベーションや賃貸運用のノウハウがなくても大丈夫。
+                空き家の価値を最大限に引き出し、収益化するためのすべてをお任せいただけます。
+            </p>
+
+            <p>
+                <h3>成功実績多数で安心！</h3>
+                多くのオーナー様が当サービスで空き家を活用し、安定した収益を得ることができています。
+            </p>
+
+
         </div>
+
         <!-- Block 3 -->
         <div class="py-4 border-bottom">
-            <h2>そんなあなたに、Jam Nation！</h2>
+            <h2  class="text-primary">今すぐ「無料相談」をお申し込みください！</h2>
             <p>
-            <span class="text-danger fw-bold">ジャズ専用SNS『Jam Nation』は、ジャズ仲間探しをもっと簡単に。</span>
-            <ul>
-            <li>登録ユーザーの「ジャズプロフィール」を活用した検索機能</li>
-            <li>趣味や嗜好、演奏レベル、年代などの詳細な条件でマッチング！</li>
-            <li>自分に合うジャズ友がすぐに見つかる！</li>
-            </ul>
-            これであなたも、<span class="text-danger fw-bold">ジャズ仲間と一緒に演奏を楽しむ毎日がスタートします！</span>
+空き家の活用方法や収益化のプランをご提案します。<br>
 
             </p>
         </div>
-        <!-- Block 4 -->
-        <div class="py-4 border-bottom">
-            <h2>Jam Nation 2025年１月 日本上陸！</h2>
-            <p>
-            Jam Nationは、イタリア発のサービス。<br>
-            各国順次リリースします。<br>
-            Jam Nationで、世界中のジャズ愛好家やミュージシャンとつながることで、思いがけないセッション、出会いが待っています。<br>
-            ジャズは言葉の壁を超える音楽。Jam Nationで、世界中のジャズ仲間と交流し、新しい可能性を広げてみませんか？<br>
 
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="form-container">
+            <h2>お急ぎの方はお電話で！<br>050-3553-7830</h2>
 
-            <span class="text-danger fw-bold">先行登録をしていただいた方には、様々な特典をご用意！</span>
+            非常に混みあっておりますので、応答ができない場合は、折り返しいたします。
 
-            </p>
-        </div>
-        <!-- Block 5 -->
-        <div class="py-4 border-bottom">
-            <h2>先行登録開始！</h2>
-            <p>日本初のジャズミュージシャン専用SNS『Jam Nation』を誰よりも早く体験しよう！<br>
-                先行登録された方には、<br><span class="text-danger fw-bold">30年ジャズを聴いて、演奏してきた僕が、初心者のために厳選した、ますますジャズが好きになる名曲プレイリスト(Spotify)をプレゼント！<br></span>
+            <h3>空き家活用について<br>もっと知りたい方は<br>ニュースレターを登録</h3>
 
-                以下にメールアドレスを登録するだけ！
-            </p>
+            <form onsubmit="handleSubmit(event)"　id="myForm">
+                <input type="email" name="email" id="email" class="form-control" placeholder="メールアドレスを入力" required >
+                <div class="error-message"></div>
+                <button type="submit" class="btn btn-lg w-100" id="submit-button">今すぐ登録する</button>
+            </form>
         </div>
 
-    <!-- Iframe Section -->
-    <section class="container-fluid iframe-section">
-        <div class="iframe-container">
-            <iframe src="https://script.google.com/macros/s/AKfycbyYBM2dv8_bhCBTY6s15bt9l32JWTTDsocX8wujoow5m4grx09YrC7KMCZ-zpwhZHnh0Q/exec" title="Contact Page"></iframe>
-        </div>
+        <div id="thank-you">登録ありがとうございました！</div>
+
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
